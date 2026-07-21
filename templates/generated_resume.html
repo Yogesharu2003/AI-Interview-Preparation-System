@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Generated Resume</title>
+
+<style>
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f4f6f9;
+    margin:0;
+    padding:40px;
+}
+
+.resume{
+    width:800px;
+    margin:auto;
+    background:white;
+    padding:40px;
+    border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+h1{
+    color:#0d6efd;
+    margin-bottom:5px;
+}
+
+h2{
+    border-bottom:2px solid #0d6efd;
+    padding-bottom:5px;
+    margin-top:25px;
+}
+
+p{
+    line-height:1.7;
+}
+
+.btn{
+    display:inline-block;
+    margin-top:25px;
+    padding:12px 25px;
+    background:#0d6efd;
+    color:white;
+    text-decoration:none;
+    border-radius:6px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="resume">
+
+<h1>{{ fullname }}</h1>
+
+<p>
+<b>Email:</b> {{ email }}<br>
+<b>Phone:</b> {{ phone }}
+</p>
+
+<h2>Career Objective</h2>
+<p>{{ objective }}</p>
+
+<h2>Skills</h2>
+<p>{{ skills }}</p>
+
+<h2>Education</h2>
+<p>{{ education }}</p>
+
+<h2>Projects</h2>
+<p>{{ projects }}</p>
+
+<h2>Experience</h2>
+<p>{{ experience }}</p>
+
+<h2>Certifications</h2>
+<p>{{ certifications }}</p>
+
+<form action="/download_resume" method="POST">
+
+<input type="hidden" name="fullname" value="{{ fullname }}">
+<input type="hidden" name="email" value="{{ email }}">
+<input type="hidden" name="phone" value="{{ phone }}">
+<input type="hidden" name="objective" value="{{ objective }}">
+<input type="hidden" name="skills" value="{{ skills }}">
+<input type="hidden" name="education" value="{{ education }}">
+<input type="hidden" name="projects" value="{{ projects }}">
+<input type="hidden" name="experience" value="{{ experience }}">
+<input type="hidden" name="certifications" value="{{ certifications }}">
+
+<button class="btn">
+📄 Download Resume PDF
+</button>
+
+</form>
+
+<br>
+
+<a href="/dashboard" class="btn">
+🏠 Back to Dashboard
+</a>
+
+
+</div>
+
+</body>
+</html>

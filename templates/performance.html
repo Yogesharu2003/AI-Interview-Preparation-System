@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Interview Performance Report</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        body{
+            font-family:Arial, sans-serif;
+            background:#f4f6f9;
+            margin:0;
+            padding:30px;
+        }
+
+        .container{
+            width:90%;
+            margin:auto;
+        }
+
+        .summary{
+            background:white;
+            padding:25px;
+            border-radius:10px;
+            box-shadow:0 5px 10px rgba(0,0,0,.1);
+            margin-bottom:30px;
+        }
+
+        .summary h1{
+            color:#0d6efd;
+        }
+
+        .stats{
+            display:flex;
+            gap:20px;
+            flex-wrap:wrap;
+            margin-top:20px;
+        }
+
+        .box{
+            flex:1;
+            min-width:180px;
+            background:#0d6efd;
+            color:white;
+            padding:20px;
+            border-radius:10px;
+            text-align:center;
+        }
+
+        .box h2{
+            margin:10px 0;
+        }
+
+        .excellent{
+            color:green;
+            font-weight:bold;
+        }
+
+        .average{
+            color:orange;
+            font-weight:bold;
+        }
+
+        .poor{
+            color:red;
+            font-weight:bold;
+        }
+
+        .question-card{
+            background:white;
+            padding:20px;
+            margin-bottom:20px;
+            border-radius:10px;
+            box-shadow:0 5px 10px rgba(0,0,0,.1);
+        }
+
+        .question{
+            color:#0d6efd;
+            font-weight:bold;
+            font-size:18px;
+        }
+
+        .answer{
+            background:#f8f9fa;
+            padding:15px;
+            border-left:5px solid #0d6efd;
+            margin-top:10px;
+            white-space:pre-wrap;
+        }
+
+        .score{
+            font-size:18px;
+            font-weight:bold;
+            color:green;
+            margin-top:10px;
+        }
+
+        .feedback{
+            margin-top:10px;
+            background:#fff8dc;
+            padding:15px;
+            border-left:5px solid orange;
+            white-space:pre-wrap;
+        }
+
+        .btn{
+            display:inline-block;
+            margin-top:20px;
+            background:#0d6efd;
+            color:white;
+            padding:12px 25px;
+            text-decoration:none;
+            border-radius:6px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="summary">
+
+<h1>📊 AI Interview Performance Report</h1>
+
+<h2>Welcome, {{ username }}</h2>
+
+<div class="stats">
+
+<div class="box">
+<h3>Total Questions</h3>
+<h2>{{ summary.total }}</h2>
+</div>
+
+<div class="box">
+<h3>Total Score</h3>
+<h2>{{ summary.total_score }}</h2>
+</div>
+
+<div class="box">
+<h3>Average</h3>
+<h2>{{ "%.2f"|format(summary.average_score) }}/10</h2>
+</div>
+
+<div class="box">
+<h3>Percentage</h3>
+<h2>{{ percentage }}%</h2>
+</div>
+
+</div>
+
+<br>
+
+{% if percentage >=80 %}
+<h2 class="excellent">🏆 Excellent Performance ⭐⭐⭐⭐⭐</h2>
+{% elif percentage >=60 %}
+<h2 class="average">👍 Good Performance ⭐⭐⭐⭐</h2>
+{% else %}
+<h2 class="poor">📚 Needs More Practice ⭐⭐</h2>
+{% endif %}
+
+</div>
+
+<h2>📋 Interview History</h2>
+
+{% for row in reports %}
+
+<div class="question-card">
+
+<p class="question">
+Question {{ loop.index }}:
+{{ row.question }}
+</p>
+
+<div class="answer">
+<b>Your Answer</b><br><br>
+{{ row.answer }}
+</div>
+
+<div class="score">
+⭐ Score : {{ row.score }}/10
+</div>
+
+<div class="feedback">
+<b>AI Feedback</b><br><br>
+{{ row.feedback }}
+</div>
+
+</div>
+
+{% endfor %}
+
+<div class="button-group">
+
+<a href="/dashboard" class="btn">
+🏠 Dashboard
+</a>
+
+<a href="/certificate" class="btn">
+🏆 Download Certificate
+</a>
+
+</div>
+
+<div class="chart-container">
+
+<h2>📈 Overall Performance</h2>
+
+<div class="progress-box">
+
+<div class="progress">
+
+<div class="progress-bar"
+style="width:{{ percentage }}%;">
+
+{{ percentage }}%
+
+</div>
+
+</div>
+
+</div>
+
+<br>
+
+<canvas id="scoreChart"></canvas>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+const ctx=document.getElementById("scoreChart");
+
+new Chart(ctx,{
+
+type:"bar",
+
+data:{
+
+labels:[
+"Total Score",
+"Average",
+"Percentage"
+],
+
+datasets:[{
+
+label:"Interview Report",
+
+data:[
+{{ summary.total_score }},
+{{ summary.average_score }},
+{{ percentage }}
+],
+
+backgroundColor:[
+"#0d6efd",
+"#ffc107",
+"#28a745"
+]
+
+}]
+
+},
+
+options:{
+
+responsive:true,
+
+plugins:{
+
+legend:{
+display:false
+}
+
+},
+
+scales:{
+
+y:{
+beginAtZero:true
+}
+
+}
+
+}
+
+});
+
+</script>
+
+</body>
+</html>

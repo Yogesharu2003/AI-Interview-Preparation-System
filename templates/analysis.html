@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Analysis</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<nav>
+
+<div class="logo">
+🤖 AI Interview Preparation System
+</div>
+
+<ul>
+<li><a href="/dashboard">Dashboard</a></li>
+<li><a href="/logout">Logout</a></li>
+</ul>
+
+</nav>
+
+<div class="analysis-container">
+
+<h1>📄 AI Resume Analysis</h1>
+
+<div class="analysis-card">
+
+<h2>📧 Email</h2>
+
+<div class="info-box">
+{{ result.email }}
+</div>
+
+</div>
+
+<div class="analysis-card">
+
+<h2>📱 Phone</h2>
+
+<div class="info-box">
+{{ result.phone }}
+</div>
+
+</div>
+
+<div class="analysis-card">
+
+<h2>💻 Skills</h2>
+
+<div class="skills">
+
+{% for skill in result.skills %}
+
+<span class="skill">
+{{ skill }}
+</span>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+<div class="analysis-card">
+
+<h2>📊 ATS Score</h2>
+
+<div class="score-circle">
+
+{{ score }}%
+
+</div>
+
+</div>
+<div class="analysis-card">
+
+    <h2>💼 Recommended Jobs</h2>
+
+    {% for job in jobs %}
+
+    <div class="job-card">
+
+        <h3>{{ job[0] }}</h3>
+
+        <p>⭐ Match : {{ job[1] }}%</p>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+<div class="analysis-card">
+
+    <h2>💡 Resume Improvement Suggestions</h2>
+
+    {% for suggestion in suggestions %}
+
+    <div class="suggestion-card">
+
+        ✅ {{ suggestion }}
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+<div class="button-group">
+
+    <a href="/dashboard" class="back-btn">
+        🏠 Back to Dashboard
+    </a>
+
+    <a href="/interview" class="mock-btn">
+        🎤 Start Mock Interview
+    </a>
+
+</div>
+
+</div>
+
+</body>
+</html>

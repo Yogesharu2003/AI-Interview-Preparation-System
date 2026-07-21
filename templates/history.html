@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interview History</title>
+
+    <style>
+
+        body{
+            font-family:Arial;
+            background:#f4f4f4;
+            padding:30px;
+        }
+
+        .card{
+            background:white;
+            padding:20px;
+            margin-bottom:20px;
+            border-radius:10px;
+            box-shadow:0 0 10px #ccc;
+        }
+
+        .btn{
+            padding:10px 20px;
+            background:#2196F3;
+            color:white;
+            text-decoration:none;
+            border-radius:5px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h1>📊 Interview History</h1>
+
+{% for row in interviews %}
+
+<div class="card">
+
+<h2>Interview #{{ row.interview_id }}</h2>
+
+<p><b>Resume :</b> {{ row.resume_name }}</p>
+
+<p><b>Date :</b> {{ row.interview_date }}</p>
+
+<p><b>Score :</b> {{ row.percentage }}%</p>
+
+<a class="btn"
+href="/history/{{ row.interview_id }}">
+View Details
+</a>
+
+</div>
+
+{% endfor %}
+
+</body>
+</html>

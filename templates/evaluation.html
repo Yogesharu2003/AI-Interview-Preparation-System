@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Answer Evaluation</title>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f4f4;
+            margin:40px;
+        }
+
+        .container{
+            max-width:800px;
+            margin:auto;
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 0 10px #ccc;
+        }
+
+        h2{
+            color:#007bff;
+        }
+
+        .score{
+            font-size:24px;
+            font-weight:bold;
+            color:green;
+        }
+
+        ul{
+            line-height:2;
+        }
+
+        textarea{
+            width:100%;
+        }
+
+        .btn{
+            display:inline-block;
+            padding:10px 20px;
+            background:#007bff;
+            color:white;
+            text-decoration:none;
+            border-radius:5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🤖 AI Answer Evaluation</h2>
+
+<hr>
+
+<h3>Question</h3>
+
+<p>{{ question }}</p>
+
+<hr>
+
+<h3>Your Answer</h3>
+
+<p>{{ answer }}</p>
+
+<hr>
+
+<h3 class="score">
+Score : {{ result.score }}/10
+</h3>
+
+<h3>Feedback</h3>
+
+<ul>
+{% for item in result.feedback %}
+    <li>{{ item }}</li>
+{% endfor %}
+</ul>
+
+<br>
+
+<a href="/interview" class="btn">
+Next Question →
+</a>
+
+</div>
+
+</body>
+</html>

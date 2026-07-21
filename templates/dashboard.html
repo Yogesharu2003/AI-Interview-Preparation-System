@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Dashboard</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<nav>
+
+<div class="logo">
+🤖 AI Interview Preparation System
+</div>
+
+<ul>
+
+<li><a href="/">Home</a></li>
+<li><a href="/logout">Logout</a></li>
+
+</ul>
+
+</nav>
+
+<div class="dashboard">
+
+<h1>Welcome, {{ username }} 👋</h1>
+
+<p>
+Start preparing for your dream job using AI.
+</p>
+
+<div class="cards">
+
+<div class="card">
+<h2>📄 Resume Upload</h2>
+<p>Upload and analyze your resume.</p>
+<a href="/upload_resume" class="btn">Open</a>
+</div>
+
+<div class="card">
+<h2>🎤 AI HR Interview</h2>
+<p>Practice HR interview questions.</p>
+<a href="/hr_interview" class="btn">Start</a>
+</div>
+
+<div class="card">
+<h2>💻 Python Interview</h2>
+<p>Python coding questions.</p>
+<a href="/python_interview" class="btn">Start</a>
+</div>
+
+<div class="card">
+<h2>🗄 SQL Interview</h2>
+<p>Practice SQL interview questions.</p>
+<a href="/sql_interview" class="btn">Start</a>
+</div>
+
+<div class="card">
+<h2>📊 Performance</h2>
+<p>View interview reports.</p>
+<a href="/performance" class="btn">View</a>
+</div>
+<div class="card">
+
+<h2>🤖 AI Assistant</h2>
+
+<p>Ask interview questions anytime.</p>
+
+<a href="/chatbot" class="btn">
+
+Open
+
+</a>
+
+</div>
+<div class="card">
+
+<h2>📄 Resume Builder</h2>
+
+<p>Create a professional ATS-friendly resume.</p>
+
+<a href="/resume_builder" class="btn">
+Open
+</a>
+
+</div>
+
+<div class="card">
+<h2>👤 My Profile</h2>
+<p>Manage your account.</p>
+<a href="/profile" class="btn">Open</a>
+</div>
+</body>
+</html>

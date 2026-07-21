@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>AI Chat Assistant</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#f4f6f9;
+}
+
+.container{
+    width:60%;
+    margin:40px auto;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin-top:20px;
+}
+
+button{
+    margin-top:20px;
+    padding:12px 25px;
+    background:#2962ff;
+    color:white;
+    border:none;
+    border-radius:5px;
+}
+
+.answer{
+    margin-top:30px;
+    background:#eef5ff;
+    padding:20px;
+    border-left:5px solid #2962ff;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🤖 AI Interview Assistant</h1>
+
+<form method="POST">
+
+<input
+type="text"
+name="question"
+placeholder="Ask your interview question..."
+required>
+
+<button type="submit">
+
+Ask AI
+
+</button>
+
+</form>
+
+{% if answer %}
+
+<div class="answer">
+
+{{ answer }}
+
+</div>
+
+{% endif %}
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Resume Builder</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#f4f6f9;
+    margin:0;
+}
+
+.container{
+
+    width:70%;
+    margin:40px auto;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:10px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+
+}
+
+h1{
+
+    text-align:center;
+
+    color:#0d6efd;
+
+}
+
+input,
+textarea{
+
+    width:100%;
+
+    padding:12px;
+
+    margin:10px 0;
+
+    border:1px solid #ccc;
+
+    border-radius:6px;
+
+}
+
+button{
+
+    background:#0d6efd;
+
+    color:white;
+
+    padding:12px 25px;
+
+    border:none;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+}
+
+button:hover{
+
+    background:#084298;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📄 AI Resume Builder</h1>
+
+<form method="POST">
+
+<input
+type="text"
+name="fullname"
+placeholder="Full Name"
+required>
+
+<input
+type="email"
+name="email"
+placeholder="Email">
+
+<input
+type="text"
+name="phone"
+placeholder="Phone Number">
+
+<textarea
+name="objective"
+placeholder="Career Objective"></textarea>
+
+<textarea
+name="skills"
+placeholder="Skills"></textarea>
+
+<textarea
+name="education"
+placeholder="Education"></textarea>
+
+<textarea
+name="projects"
+placeholder="Projects"></textarea>
+
+<textarea
+name="experience"
+placeholder="Experience"></textarea>
+
+<textarea
+name="certifications"
+placeholder="Certifications"></textarea>
+
+<button type="submit">
+
+Generate Resume
+
+</button>
+
+</form>
+
+</div>
+
+</body>
+</html>

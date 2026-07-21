@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Interview Details</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#f4f4f4;
+    padding:30px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px lightgray;
+}
+
+.question{
+    color:#0d6efd;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.answer{
+    background:#f8f9fa;
+    padding:15px;
+    margin-top:10px;
+    border-left:5px solid green;
+}
+
+.feedback{
+    background:#fff3cd;
+    padding:15px;
+    margin-top:10px;
+    border-left:5px solid orange;
+}
+
+.score{
+    color:green;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.btn{
+    background:#0d6efd;
+    color:white;
+    padding:10px 20px;
+    text-decoration:none;
+    border-radius:5px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>📋 Interview {{ interview_id }}</h1>
+
+{% for row in reports %}
+
+<div class="card">
+
+<div class="question">
+
+Question {{ loop.index }}
+
+</div>
+
+<p>{{ row.question }}</p>
+
+<div class="answer">
+
+<b>Your Answer</b>
+
+<br><br>
+
+{{ row.answer }}
+
+</div>
+
+<div class="score">
+
+⭐ Score : {{ row.score }}/10
+
+</div>
+
+<div class="feedback">
+
+<b>AI Feedback</b>
+
+<br><br>
+
+{{ row.feedback }}
+
+</div>
+
+</div>
+
+{% endfor %}
+
+<a href="/history" class="btn">
+⬅ Back to History
+</a>
+
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Upload Resume</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+
+    background:#f4f6f9;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+
+}
+
+.container{
+
+    width:650px;
+    background:white;
+    padding:40px;
+    border-radius:15px;
+    box-shadow:0px 8px 20px rgba(0,0,0,.15);
+
+}
+
+.header{
+
+    text-align:center;
+    margin-bottom:35px;
+
+}
+
+.header h1{
+
+    color:#0d47a1;
+    font-size:42px;
+    margin-bottom:10px;
+
+}
+
+.header p{
+
+    color:#666;
+    font-size:22px;
+
+}
+
+.upload-box{
+
+    border:3px dashed #2962ff;
+    border-radius:12px;
+    padding:40px;
+    text-align:center;
+    background:#f8fbff;
+
+}
+
+.upload-icon{
+
+    font-size:70px;
+    margin-bottom:20px;
+
+}
+
+input[type=file]{
+
+    margin-top:20px;
+    font-size:17px;
+
+}
+
+.upload-btn{
+
+    width:100%;
+    margin-top:35px;
+    background:#2962ff;
+    color:white;
+    border:none;
+    padding:16px;
+    font-size:20px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+
+}
+
+.upload-btn:hover{
+
+    background:#0039cb;
+
+}
+
+.back-btn{
+
+    display:block;
+    width:100%;
+    text-align:center;
+    margin-top:18px;
+    background:#28a745;
+    color:white;
+    text-decoration:none;
+    padding:15px;
+    border-radius:8px;
+    font-size:18px;
+    font-weight:bold;
+
+}
+
+.back-btn:hover{
+
+    background:#218838;
+
+}
+
+.note{
+
+    margin-top:25px;
+    text-align:center;
+    color:#666;
+    font-size:15px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<h1>📄 Upload Your Resume</h1>
+
+<p>Upload your PDF or DOCX resume for AI analysis</p>
+
+</div>
+
+<form action="/upload_resume" method="POST" enctype="multipart/form-data">
+
+<div class="upload-box">
+
+<div class="upload-icon">
+
+📁
+
+</div>
+
+<h2>Select Resume</h2>
+
+<br>
+
+<input
+type="file"
+name="resume"
+accept=".pdf,.doc,.docx"
+required>
+
+</div>
+
+<button type="submit" class="upload-btn">
+
+🚀 Upload Resume
+
+</button>
+
+</form>
+
+<a href="/dashboard" class="back-btn">
+
+🏠 Back to Dashboard
+
+</a>
+
+<div class="note">
+
+Supported formats:
+<b>PDF, DOC, DOCX</b>
+
+</div>
+
+</div>
+
+</body>
+</html>
