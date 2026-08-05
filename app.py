@@ -687,12 +687,33 @@ def admin_performance():
         "performance.html",
         performance=performance
     )
-@app.route("/logout")
-def logout():
+@app.route("/admin_dashboard")
+def admin_dashboard():
 
-    session.clear()
+    if "admin" not in session:
+        return redirect("/admin")
 
-    return redirect("/login")
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT COUNT(*) AS total FROM users")
+    total_users = cursor.fetchone()["total"]
+
+    cursor.execute("SELECT COUNT(*) AS total FROM resumes")
+    total_resumes = cursor.fetchone()["total"]
+
+    cursor.execute("SELECT COUNT(*) AS total FROM interviews")
+    total_interviews = cursor.fetchone()["total"]
+
+    cursor.close()
+    conn.close()
+
+    return render_template(
+        "admin_dashboard.html",
+        total_users=total_users,
+        total_resumes=total_resumes,
+        total_interviews=total_interviews
+    )
 @app.route("/certificate")
 def certificate():
 
