@@ -1,10 +1,14 @@
-CREATE DATABASE IF NOT EXISTS ai_interview_db;
-
-USE ai_interview_db;
+USE railway;
 
 -- --------------------------------------------------------
 -- Table: users
 -- --------------------------------------------------------
+
+DROP TABLE IF EXISTS interview_answers;
+DROP TABLE IF EXISTS interviews;
+DROP TABLE IF EXISTS resumes;
+DROP TABLE IF EXISTS admin;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
     user_id INT NOT NULL AUTO_INCREMENT,
@@ -22,8 +26,8 @@ CREATE TABLE users (
 
 CREATE TABLE admin (
     admin_id INT NOT NULL AUTO_INCREMENT,
-    username VARCHAR(100),
-    password VARCHAR(100),
+    username VARCHAR(100) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     fullname VARCHAR(100),
     email VARCHAR(100),
     PRIMARY KEY (admin_id),
@@ -80,4 +84,16 @@ CREATE TABLE interview_answers (
         FOREIGN KEY (interview_id)
         REFERENCES interviews(interview_id)
         ON DELETE CASCADE
+);
+
+-- --------------------------------------------------------
+-- Default Admin Login
+-- --------------------------------------------------------
+
+INSERT INTO admin (username, password, fullname, email)
+VALUES (
+    'admin',
+    'admin123',
+    'Administrator',
+    'admin@example.com'
 );
