@@ -661,8 +661,8 @@ def history():
 # Performance
 # ==============================
 
-@app.route("/performance")
-def performance():
+@app.route("/admin_performance")
+def admin_performance():
 
     if "admin" not in session:
         return redirect("/login")
@@ -687,12 +687,6 @@ def performance():
         "performance.html",
         performance=performance
     )
-
-
-# ==============================
-# Logout
-# ==============================
-
 @app.route("/logout")
 def logout():
 
