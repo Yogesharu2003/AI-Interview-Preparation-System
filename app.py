@@ -588,64 +588,117 @@ def admin():
         return redirect("/admin_dashboard")
 
     return render_template("admin_login.html")
-@app.route("/admin_dashboard")
-def admin_dashboard():
+
+
+@app.route("/users")
+def users():
 
     if "admin" not in session:
-        return redirect("/admin")
+        return redirect("/login")
 
     conn = get_connection()
     cursor = conn.cursor()
 
-    # Total Users
-    cursor.execute("SELECT COUNT(*) AS total FROM users")
-    total_users = cursor.fetchone()["total"]
+    cursor.execute("SELECT * FROM users ORDER BY user_id DESC")
+    users = cursor.fetchall()
 
-    # Total Resumes
-    cursor.execute("SELECT COUNT(*) AS total FROM resumes")
-    total_resumes = cursor.fetchone()["total"]
+    cursor.close()
+    conn.close()
 
-    # Total Interviews
-    cursor.execute("SELECT COUNT(*) AS total FROM interviews")
-    total_interviews = cursor.fetchone()["total"]
+    return render_template("users.html", users=users)
 
-    # Average Score
+
+# ==============================
+# Resumes
+# ==============================
+
+@app.route("/resumes")
+def resumes():
+
+    if "admin" not in session:
+        return redirect("/login")
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM resumes ORDER BY resume_id DESC")
+    resumes = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return render_template("resumes.html", resumes=resumes)
+
+
+# ==============================
+# Interview History
+# ==============================
+
+@app.route("/history")
+def history():
+
+    if "admin" not in session:
+        return redirect("/login")
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
     cursor.execute("""
-        SELECT ROUND(AVG(percentage),2) AS avg_score
-        FROM interviews
-    """)
-    avg_score = cursor.fetchone()["avg_score"] or 0
-
-    # Top 5 Candidates
-    cursor.execute("""
-        SELECT fullname, percentage
-        FROM interviews
-        ORDER BY percentage DESC
-        LIMIT 5
-    """)
-    top_candidates = cursor.fetchall()
-
-    # Recent Interviews
-    cursor.execute("""
-        SELECT fullname,resume_name,percentage,interview_date
+        SELECT *
         FROM interviews
         ORDER BY interview_date DESC
-        LIMIT 5
     """)
-    recent = cursor.fetchall()
+
+    history = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return render_template("history.html", history=history)
+
+
+# ==============================
+# Performance
+# ==============================
+
+@app.route("/performance")
+def performance():
+
+    if "admin" not in session:
+        return redirect("/login")
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT fullname,
+               percentage,
+               interview_date
+        FROM interviews
+        ORDER BY percentage DESC
+    """)
+
+    performance = cursor.fetchall()
 
     cursor.close()
     conn.close()
 
     return render_template(
-        "admin_dashboard.html",
-        total_users=total_users,
-        total_resumes=total_resumes,
-        total_interviews=total_interviews,
-        avg_score=avg_score,
-        top_candidates=top_candidates,
-        recent=recent
+        "performance.html",
+        performance=performance
     )
+
+
+# ==============================
+# Logout
+# ==============================
+
+@app.route("/logout")
+def logout():
+
+    session.clear()
+
+    return redirect("/login")
 @app.route("/certificate")
 def certificate():
 
