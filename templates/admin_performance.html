@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Admin Performance</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#f4f6f9;
+}
+
+h1{
+    background:#0d47a1;
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+
+table{
+    width:90%;
+    margin:30px auto;
+    border-collapse:collapse;
+    background:white;
+}
+
+th,td{
+    border:1px solid #ddd;
+    padding:12px;
+    text-align:center;
+}
+
+th{
+    background:#2962ff;
+    color:white;
+}
+
+tr:nth-child(even){
+    background:#f2f2f2;
+}
+
+.back{
+    text-align:center;
+    margin:20px;
+}
+
+.back a{
+    background:#2962ff;
+    color:white;
+    padding:10px 20px;
+    text-decoration:none;
+    border-radius:5px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Interview Performance Report</h1>
+
+<table>
+
+<tr>
+<th>Candidate</th>
+<th>Percentage</th>
+<th>Date</th>
+</tr>
+
+{% for row in performance %}
+
+<tr>
+
+<td>{{ row.fullname }}</td>
+
+<td>{{ row.percentage }}%</td>
+
+<td>{{ row.interview_date }}</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<div class="back">
+
+<a href="/admin_dashboard">Back to Dashboard</a>
+
+</div>
+
+</body>
+</html>

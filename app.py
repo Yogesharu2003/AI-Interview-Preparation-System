@@ -684,7 +684,7 @@ def admin_performance():
     conn.close()
 
     return render_template(
-        "performance.html",
+        "admin_performance.html",
         performance=performance
     )
 @app.route("/admin_dashboard")
