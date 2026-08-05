@@ -329,18 +329,28 @@ def interview():
 
         answer = request.form["answer"]
 
+        from ai.answer_evaluator import evaluate_answer
+
         result = evaluate_answer(question, answer)
 
         score = result["score"]
-        feedback = "\n".join(result["feedback"])
-
+        feedback = result["feedback"]
+        correct_answer = result["correct_answer"]
         conn = get_connection()
         cursor = conn.cursor()
 
         cursor.execute("""
-            INSERT INTO interview_answers
-            (interview_id, fullname, question, answer, score, feedback)
-            VALUES (%s,%s,%s,%s,%s,%s)
+        INSERT INTO interview_answers
+        (
+            interview_id,
+            fullname,
+            question,
+            answer,
+            score,
+            feedback,
+            correct_answer
+        )
+        VALUES (%s,%s,%s,%s,%s,%s,%s)
         """,
         (
             session["interview_id"],
@@ -348,7 +358,8 @@ def interview():
             question,
             answer,
             score,
-            feedback
+            feedback,
+            correct_answer
         ))
 
         conn.commit()
@@ -477,10 +488,11 @@ def performance():
     # Questions and Answers
     cursor.execute("""
         SELECT
-            question,
-            answer,
-            score,
-            feedback
+        question,
+        answer,
+        score,
+        feedback,
+        correct_answer
         FROM interview_answers
         WHERE interview_id=%s
         ORDER BY answer_id

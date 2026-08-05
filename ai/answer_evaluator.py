@@ -1,41 +1,43 @@
+import os
+import json
+from dotenv import load_dotenv
+from google import genai
+
+load_dotenv()
+
+client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+
+
 def evaluate_answer(question, answer):
 
-    score = 0
-    feedback = []
+    prompt = f"""
+You are an expert technical interviewer.
 
-    if len(answer) > 30:
-        score += 3
-        feedback.append("✔ Answer has good length.")
-    else:
-        feedback.append("✘ Answer is too short.")
+Evaluate the candidate's answer.
 
-    keywords = [
-        "python",
-        "sql",
-        "flask",
-        "java",
-        "database",
-        "object",
-        "class",
-        "function"
-    ]
+Question:
+{question}
 
-    answer_lower = answer.lower()
+Candidate Answer:
+{answer}
 
-    keyword_score = 0
+Return ONLY valid JSON.
 
-    for word in keywords:
-        if word in answer_lower:
-            keyword_score += 1
+{{
+  "score": 8,
+  "feedback": "Short feedback",
+  "correct_answer": "Ideal answer"
+}}
+"""
 
-    score += min(keyword_score, 7)
+    response = client.models.generate_content(
+        model="gemini-3.5-flash",
+        contents=prompt,
+    )
 
-    if keyword_score >= 3:
-        feedback.append("✔ Good technical keywords.")
-    else:
-        feedback.append("✘ Add more technical details.")
+    text = response.text.strip()
 
-    return {
-        "score": score,
-        "feedback": feedback
-    }
+    if text.startswith("```"):
+        text = text.replace("```json", "").replace("```", "").strip()
+
+    return json.loads(text)
