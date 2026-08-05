@@ -592,25 +592,47 @@ def admin():
 def admin_dashboard():
 
     if "admin" not in session:
-        return redirect("/login")
+        return redirect("/admin")
 
     conn = get_connection()
     cursor = conn.cursor()
 
+    # Total Users
     cursor.execute("SELECT COUNT(*) AS total FROM users")
     total_users = cursor.fetchone()["total"]
 
+    # Total Resumes
     cursor.execute("SELECT COUNT(*) AS total FROM resumes")
     total_resumes = cursor.fetchone()["total"]
 
+    # Total Interviews
     cursor.execute("SELECT COUNT(*) AS total FROM interviews")
     total_interviews = cursor.fetchone()["total"]
 
+    # Average Score
     cursor.execute("""
-        SELECT IFNULL(AVG(score),0) AS avg_score
-        FROM interview_answers
+        SELECT ROUND(AVG(percentage),2) AS avg_score
+        FROM interviews
     """)
-    avg_score = round(cursor.fetchone()["avg_score"], 2)
+    avg_score = cursor.fetchone()["avg_score"] or 0
+
+    # Top 5 Candidates
+    cursor.execute("""
+        SELECT fullname, percentage
+        FROM interviews
+        ORDER BY percentage DESC
+        LIMIT 5
+    """)
+    top_candidates = cursor.fetchall()
+
+    # Recent Interviews
+    cursor.execute("""
+        SELECT fullname,resume_name,percentage,interview_date
+        FROM interviews
+        ORDER BY interview_date DESC
+        LIMIT 5
+    """)
+    recent = cursor.fetchall()
 
     cursor.close()
     conn.close()
@@ -620,7 +642,9 @@ def admin_dashboard():
         total_users=total_users,
         total_resumes=total_resumes,
         total_interviews=total_interviews,
-        avg_score=avg_score
+        avg_score=avg_score,
+        top_candidates=top_candidates,
+        recent=recent
     )
 @app.route("/certificate")
 def certificate():
