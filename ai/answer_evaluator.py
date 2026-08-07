@@ -1,7 +1,9 @@
 import os
 import json
+import time
 from dotenv import load_dotenv
 from google import genai
+from google.genai.errors import ServerError
 
 load_dotenv()
 
@@ -30,14 +32,32 @@ Return ONLY valid JSON.
 }}
 """
 
-    response = client.models.generate_content(
-        model="gemini-3.5-flash",
-        contents=prompt,
-    )
+    # Retry up to 3 times if Gemini is busy
+    for attempt in range(3):
+        try:
+            response = client.models.generate_content(
+                model="gemini-3.5-flash-lite",   # or "gemini-3.6-flash"
+                contents=prompt,
+            )
 
-    text = response.text.strip()
+            text = response.text.strip()
 
-    if text.startswith("```"):
-        text = text.replace("```json", "").replace("```", "").strip()
+            if text.startswith("```"):
+                text = text.replace("```json", "").replace("```", "").strip()
 
-    return json.loads(text)
+            return json.loads(text)
+
+        except ServerError:
+            print(f"Gemini busy. Retrying ({attempt + 1}/3)...")
+            time.sleep(3)
+
+        except Exception as e:
+            print("AI Error:", e)
+            break
+
+    # Fallback if AI is unavailable
+    return {
+        "score": 0,
+        "feedback": "AI server is temporarily unavailable. Please try again later.",
+        "correct_answer": "Unavailable"
+    }
