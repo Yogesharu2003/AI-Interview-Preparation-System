@@ -3,6 +3,7 @@ venv/
 
 # Environment Variables
 .env
+ai.env
 
 # Python Cache
 __pycache__/
